@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import UserService from "../services/user.js";
+import BoardService from "../services/board.js";
 
 dotenv.config();
 const corsOptions = {
@@ -20,18 +20,19 @@ app.use(function (_req, res, next) {
 });
 
 app.post("/rescue-activity", cors(corsOptions), (req, res) => {
-  UserService().join(req, res);
+  BoardService().createRescueActivity(req, res);
 });
 
 app.get("/rescue-list", cors(corsOptions), (req, res) => {
-  UserService().login(req, res);
+  console.log('>>>>>>>');
+  BoardService().selectRescueActivityList(req, res);
 });
 
 app.put(
   "/rescue-activity",
   cors(corsOptions),
   (req, res) => {
-    UserService().logout(req, res);
+    BoardService().updateRescueActivity(req, res);
   }
 );
 app.delete(
@@ -39,7 +40,7 @@ app.delete(
   cors(corsOptions),
   (req, res) => {
     console.log(">>>>>>>>>>");
-    UserService().getUsers(req, res);
+    BoardService().deleteRescueActivity(req, res);
   }
 );
 export default app;

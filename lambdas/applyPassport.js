@@ -7,7 +7,6 @@ const applyPassport = (passport, _secretOrKey) => {
     secretOrKey: _secretOrKey,
   };
   const verifyUser = async (jwt_payload, done) => {
-    console.log("jwt_payload", jwt_payload);
     const User = db.user;
     User.findOne(
       {
