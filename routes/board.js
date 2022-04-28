@@ -20,27 +20,20 @@ app.use(function (_req, res, next) {
 });
 
 app.post("/rescue-activity", cors(corsOptions), (req, res) => {
+  console.log(`>>>>>>> post ${JSON.stringify(req.body)}`);
   BoardService().createRescueActivity(req, res);
 });
 
 app.get("/rescue-list", cors(corsOptions), (req, res) => {
-  console.log('>>>>>>>');
+  console.log(`>>>>>>> get`);
   BoardService().selectRescueActivityList(req, res);
 });
 
-app.put(
-  "/rescue-activity",
-  cors(corsOptions),
-  (req, res) => {
-    BoardService().updateRescueActivity(req, res);
-  }
-);
-app.delete(
-  "/rescue-activity",
-  cors(corsOptions),
-  (req, res) => {
-    console.log(">>>>>>>>>>");
-    BoardService().deleteRescueActivity(req, res);
-  }
-);
+app.put("/rescue-activity", cors(corsOptions), (req, res) => {
+  BoardService().updateRescueActivity(req, res);
+});
+app.delete("/rescue-activity", cors(corsOptions), (req, res) => {
+  console.log(">>>>>>>>>> delete");
+  BoardService().deleteRescueActivity(req, res);
+});
 export default app;

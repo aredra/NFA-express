@@ -5,7 +5,7 @@ export default function BoardModel(mongoose) {
     reportDate: String,
     moveDate: String,
     moveTime: String,
-    distance: Number,
+    distance: String,
     arrivalDate: String,
     arrivalTime: String,
     returnDate: String,

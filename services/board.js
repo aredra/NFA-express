@@ -21,34 +21,9 @@ export default function BoardService() {
       });
     },
     selectRescueActivityList(req, res) {
-      User.findOne(
-        {
-          userid: req.body.userid,
-        },
-        (err, user) => {
-          console.log(user);
-          if (err) throw err;
-          if (!user) {
-            res
-              .status(401)
-              .send({ success: false, message: "해당 ID가 존재하지 않습니다" });
-          } else {
-            console.log(" ### 로그인 정보 : " + JSON.stringify(user));
-            user.comparePassword(req.body.password, function (_err, isMatch) {
-              if (!isMatch) {
-                res.status(401).send({ message: "FAIL" });
-              } else {
-                user.generateToken((err, user) => {
-                  if (err) res.status(400).send(err);
-
-                  // 토큰을 저장한다. 어디에? 쿠키, 로컬스토리지
-                  res.status(200).json(user);
-                });
-              }
-            });
-          }
-        }
-      );
+      Board.find().exec((err, users) => {
+        res.status(200).json(users);
+      });
     },
     updateRescueActivity(req, res) {
       const userid = req.body.userid;
