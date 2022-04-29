@@ -25,16 +25,16 @@ export default function BoardService() {
         res.status(200).json(users);
       });
     },
-    updateRescueActivity(req, res) {
-      const userid = req.body.userid;
-      User.findById({ userid: userid }).exec((_err, user) => {
-        return res.status(200).json(user);
-      });
+    async updateRescueActivity(req, res) {
+      const id = req.body._id;
+      const result = await Board.findOneAndUpdate({ _id: id }, req.body);
+      return res.status(200).json(result);
     },
-    deleteRescueActivity(_req, res) {
-      User.find().exec((err, users) => {
-        res.status(200).json(users);
-      });
+    async deleteRescueActivity(req, res) {
+      console.log(">>>>>>>>>>>>>>> delete:", req.params.id);
+      const id = req.params.id;
+      const result = await Board.deleteOne({ _id: id });
+      return res.status(200).json(result);
     },
   };
 }

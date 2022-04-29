@@ -30,9 +30,10 @@ app.get("/rescue-list", cors(corsOptions), (req, res) => {
 });
 
 app.put("/rescue-activity", cors(corsOptions), (req, res) => {
+  console.log(">>>>>>>>>> update");
   BoardService().updateRescueActivity(req, res);
 });
-app.delete("/rescue-activity", cors(corsOptions), (req, res) => {
+app.delete("/rescue-activity/:id", cors(corsOptions), (req, res) => {
   console.log(">>>>>>>>>> delete");
   BoardService().deleteRescueActivity(req, res);
 });
