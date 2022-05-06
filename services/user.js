@@ -8,6 +8,7 @@ export default function UserService() {
 
   return {
     join(req, res) {
+      console.log(req.body);
       new User(req.body).save((err) => {
         if (err) {
           res.status(500).json({

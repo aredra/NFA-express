@@ -6,20 +6,34 @@ import applyDotenv from "../lambdas/applyDotenv.js";
 export default function UserModel(mongoose) {
   const { jwtSecret } = applyDotenv(dotenv);
 
-  const userSchema = mongoose.Schema({
-    userid: String,
-    password: String,
-    email: String,
-    name: String,
-    phone: String,
-    birth: String,
-    address: String,
-    token: String,
+  const userSchema = mongoose.Schema(
+    {
+      userid: { type: String, maxlength: 10, unique: 1 },
+      password: String,
+      email: String,
+      name: String,
+      phone: String,
+      birth: String,
+      address: String,
+      token: String,
+    },
+    { timestamps: true }
+  );
+
+  userSchema.pre("save", function (next) {
+    let user = this;
+    const saltRounds = 10;
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+      if (err) return next(err);
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        if (err) return next(err);
+        user.password = hash;
+        next();
+      });
+    });
   });
+
   userSchema.methods.comparePassword = function (plainPassword, cb) {
-    //cb는 (err,isMatch)이다. plainPassword 유저가 입력한 password
-    console.log(" >> plainPassword >> " + plainPassword);
-    console.log(" >> this.password >> " + this.password);
     let isMatch = false;
     if (plainPassword === this.password) {
       console.log(" >> plainPassword===this.password >> ");
