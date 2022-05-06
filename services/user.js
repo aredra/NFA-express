@@ -78,6 +78,8 @@ export default function UserService() {
       */
     },
     logout(req, res) {
+      console.log(">>>>>>>>>> logout");
+
       req.logout();
       res.json({ msg: "Logout success." });
     },

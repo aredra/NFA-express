@@ -37,12 +37,12 @@ async function startServer() {
     });
 
   app.all("*", function (_req, res) {
-    return getResponse.notFoundResponse(res, "페이지를 찾을 수 없습니다");
+    return getResponse().notFoundResponse(res, "페이지를 찾을 수 없습니다");
   });
 
   app.use((err, _req, res) => {
     if (err.name == "UnauthorizedError") {
-      return getResponse.unauthorizedResponse(res, err.message);
+      return getResponse().unauthorizedResponse(res, err.message);
     }
   });
 
